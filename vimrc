@@ -39,7 +39,9 @@ Plug 'python-mode/python-mode', { 'branch': 'develop'  }
 Plug 'mhinz/vim-signify'
 Plug 'lervag/vimtex'
 Plug 'sirver/ultisnips'
-
+Plug 'honza/vim-snippets'
+" Plug 'ludovicchabant/vim-gutentags'
+" Plug 'skywind3000/gutentags_plus'
 "......................................
 call plug#end()
 
@@ -56,8 +58,21 @@ nnoremap <leader>d Oimport pdb; pdb.set_trace()<Esc>
 " ================ ctags ========================
 map <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
+" =================== gtags =====================
+let g:gutentags_define_advanced_commands = 1
+" enable gtags module
+let g:gutentags_modules = ['ctags', 'gtags_cscope']
 
-""""""""""syntastic""""""""""""
+" config project root markers.
+let g:gutentags_project_root = ['.root']
+
+" generate datebases in my cache directory, prevent gtags files polluting my project
+let g:gutentags_cache_dir = expand('~/.cache/tags')
+
+" change focus to quickfix window after search (optional).
+let g:gutentags_plus_switch = 1
+
+" =================== syntastic ==========================
 let g:syntastic_check_on_open = 1
 let g:syntastic_cpp_include_dirs = ['/usr/include/']
 let g:syntastic_cpp_remove_include_errors = 1
@@ -100,7 +115,7 @@ nnoremap <leader>\ :YcmCompleter GoTo<CR>
 " let g:ctrlp_cmd = 'CtrlP'
 " " 相当于mru功能，show recently opened files
 " map <leader>fp :CtrlPMRU<CR>
-" "set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux"
+" set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux"
 " let g:ctrlp_custom_ignore = {
 "     \ 'dir':  '\v[\/]\.(git|hg|svn|rvm)$',
 "     \ 'file': '\v\.(exe|so|dll|zip|tar|tar.gz)$',
@@ -124,9 +139,9 @@ nnoremap <leader>\ :YcmCompleter GoTo<CR>
 
 " ===================== fzf ============================
 nnoremap <leader>ff :Files<CR>
-nnoremap <leader>b :Buffers<CR>
-nnoremap <leader>m :Marks<CR>
-nnoremap <leader>a :Ag<CR>
+nnoremap <leader>fb :Buffers<CR>
+nnoremap <leader>fm :Marks<CR>
+nnoremap <leader>fa :Ag<CR>
 nnoremap <leader>ft :BLines<CR>
 
 " ================= rainbow ========================
@@ -156,17 +171,18 @@ let g:multi_cursor_prev_key            = '<C-p>'
 let g:multi_cursor_skip_key            = '<C-x>'
 let g:multi_cursor_quit_key            = '<Esc>'
 
-" ================== vimtex =======================================
+" ======================== vimtex ==============================
 let g:tex_flavor='latex'
 let g:vimtex_view_method='zathura'
 let g:vimtex_quickfix_mode=0
 set conceallevel=1
 let g:tex_conceal='abdmg'
 
-" ================== ultisnips ====================================
-let g:UltiSnipsExpandTrigger = '<tab>'
-let g:UltiSnipsJumpForwardTrigger = '<tab>'
-let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+" ======================== ultisnips ===========================
+let g:UltiSnipsExpandTrigger = '<C-h>'
+let g:UltiSnipsJumpForwardTrigger = '<C-j>'
+let g:UltiSnipsJumpBackwardTrigger = '<C-k>'
+
 
 " ================== general settings =============================
 filetype on
